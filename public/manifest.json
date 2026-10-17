@@ -1,0 +1,26 @@
+{
+  "name": "FlowCapital — Cashflow & Safe-to-Spend",
+  "short_name": "FlowCapital",
+  "description": "Sistema adaptativo de flujo de caja, control de gastos fijos, Safe-to-Spend diario y Sinking Funds.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A0E1A",
+  "theme_color": "#0A0E1A",
+  "lang": "es-PE",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
