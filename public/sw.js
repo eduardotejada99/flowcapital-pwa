@@ -1,5 +1,12 @@
-const CACHE_NAME = 'flowcapital-v1.0.0';
-const STATIC_ASSETS = ['/', '/manifest.json'];
+const CACHE_NAME = 'flowcapital-v1.1.0';
+const STATIC_ASSETS = [
+  '/',
+  '/manifest.json',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/apple-touch-icon.png',
+  '/favicon.png',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
