@@ -96,7 +96,7 @@ export default function FlowCapitalApp() {
 
     const penaltyPer30Soles = 30 / Math.max(1, remainingDays - 1);
 
-    let healthStatus = { code: 'VERDE', label: 'Gasto bajo control' };
+    let healthStatus = { code: 'VERDE', label: 'Bajo Control' };
     if (safeToSpendToday < 0 || variableSpentMonth > variablePoolTotal) {
       healthStatus = { code: 'ROJO', label: 'Riesgo de sobregiro' };
     } else if (safeToSpendToday < baseDailySafeToSpend * 0.35) {
@@ -176,8 +176,8 @@ export default function FlowCapitalApp() {
   const handleAddFixedExpense = async (payload) => {
     const newItem = {
       id: Date.now(),
-      ...payload,
       status: 'PENDIENTE',
+      ...payload,
     };
 
     persistUpdate((prev) => ({
@@ -278,40 +278,47 @@ export default function FlowCapitalApp() {
         navigator.serviceWorker.controller.postMessage({
           type: 'TRIGGER_REMINDER',
           payload: {
-            title: 'FlowCapital — Vigilancia de Pagos Fijos',
+            title: 'FlowCapital · Alerta Financiera',
             body: bodyText,
           },
         });
       } else {
-        new Notification('FlowCapital — Vigilancia de Pagos Fijos', {
-          body: bodyText,
-        });
+        new Notification('FlowCapital · Alerta Financiera', { body: bodyText });
       }
     }
   };
 
   return (
     <div className="app-shell">
-      {/* Cabecera Superior */}
-      <header className="top-header">
-        <div className="brand-cluster">
-          <div className="brand-mark">⚡</div>
+      {/* 1. Vaulta Neobank Top Header (Screenshots 8 & 10) */}
+      <header className="vaulta-header">
+        <div className="vaulta-user-row">
+          <div className="vaulta-avatar">💎</div>
           <div>
-            <div className="brand-title">FlowCapital</div>
-            <div className="brand-subtitle">Adaptive Cashflow Engine</div>
+            <div className="vaulta-greeting-sub">Banca & Cashflow</div>
+            <div className="vaulta-greeting-name">Eduardo Tejada</div>
           </div>
         </div>
 
-        <div className="sync-pill">
-          <span
-            className={`sync-dot ${syncSource === 'neon' ? '' : 'local'}`}
-          />
-          {syncSource === 'neon' ? 'Neon PG Sync' : 'Local Hybrid'}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div
+            style={{
+              fontSize: '11px',
+              padding: '4px 10px',
+              borderRadius: '999px',
+              background: syncSource === 'neon' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(255, 255, 255, 0.08)',
+              color: syncSource === 'neon' ? '#34D399' : '#94A3B8',
+              border: '1px solid var(--border-subtle)',
+              fontWeight: 700
+            }}
+          >
+            {syncSource === 'neon' ? '● Neon PG' : '○ Local'}
+          </div>
         </div>
       </header>
 
-      {/* Viewport Dinámico de las 4 Pestañas */}
-      <main className="main-viewport">
+      {/* Viewport Dinámico */}
+      <main className="app-content">
         {activeTab === 'today' && (
           <TabToday
             metrics={metrics}
@@ -356,41 +363,41 @@ export default function FlowCapitalApp() {
         onSave={handleAddQuickExpense}
       />
 
-      {/* Bottom Navigation Bar Ergonómica (4 Pestañas) */}
-      <nav className="bottom-dock" aria-label="Navegación Principal">
+      {/* Neobanking Bottom Navigation Bar (Screenshots 8 & 10) */}
+      <nav className="nav-bar" aria-label="Navegación Principal">
         <button
           type="button"
-          className={`dock-tab ${activeTab === 'today' ? 'active' : ''}`}
+          className={`nav-tab-btn ${activeTab === 'today' ? 'active' : ''}`}
           onClick={() => setActiveTab('today')}
         >
-          <span className="dock-icon">⚡</span>
-          <span>Hoy & STS</span>
+          <span className="nav-tab-icon">💳</span>
+          <span>Tarjeta & STS</span>
         </button>
 
         <button
           type="button"
-          className={`dock-tab ${activeTab === 'cashflow' ? 'active' : ''}`}
+          className={`nav-tab-btn ${activeTab === 'cashflow' ? 'active' : ''}`}
           onClick={() => setActiveTab('cashflow')}
         >
-          <span className="dock-icon">📅</span>
+          <span className="nav-tab-icon">📈</span>
           <span>Cashflow</span>
         </button>
 
         <button
           type="button"
-          className={`dock-tab ${activeTab === 'fixed' ? 'active' : ''}`}
+          className={`nav-tab-btn ${activeTab === 'fixed' ? 'active' : ''}`}
           onClick={() => setActiveTab('fixed')}
         >
-          <span className="dock-icon">📌</span>
-          <span>Fijos</span>
+          <span className="nav-tab-icon">🔔</span>
+          <span>Suscripciones</span>
         </button>
 
         <button
           type="button"
-          className={`dock-tab ${activeTab === 'goals' ? 'active' : ''}`}
+          className={`nav-tab-btn ${activeTab === 'goals' ? 'active' : ''}`}
           onClick={() => setActiveTab('goals')}
         >
-          <span className="dock-icon">🎯</span>
+          <span className="nav-tab-icon">🎯</span>
           <span>Metas</span>
         </button>
       </nav>
