@@ -617,3 +617,97 @@ button:active {
   gap: 8px;
   box-shadow: 0 4px 18px var(--gold-glow);
 }
+
+/* ==========================================================================
+   Modo Claro (Light Theme) - Neobanking Elegance
+   ========================================================================== */
+.app-shell.light-theme {
+  --bg-obsidian: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-elevated: #F1F5F9;
+  --bg-glass: rgba(255, 255, 255, 0.94);
+
+  --border-subtle: #E2E8F0;
+  --border-focus: rgba(217, 119, 6, 0.4);
+  --border-active: rgba(16, 185, 129, 0.5);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+
+  background: radial-gradient(circle at 50% -20%, #E2E8F0 0%, #F8FAFC 75%);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border-left: 1px solid #E2E8F0;
+  border-right: 1px solid #E2E8F0;
+}
+
+.app-shell.light-theme input,
+.app-shell.light-theme select,
+.app-shell.light-theme textarea {
+  background-color: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+}
+
+.app-shell.light-theme .nav-bar {
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid #E2E8F0;
+}
+
+.app-shell.light-theme .nav-tab-btn {
+  color: #64748B;
+}
+
+.app-shell.light-theme .nav-tab-btn.active {
+  color: #D97706;
+}
+
+.app-shell.light-theme .bank-tx-item {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.app-shell.light-theme .reminder-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.app-shell.light-theme .vaulta-header {
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.app-shell.light-theme .reminder-header-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.app-shell.light-theme .vaulta-quick-action {
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+}
+
+.theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.app-shell.light-theme .theme-toggle-btn {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+}
+

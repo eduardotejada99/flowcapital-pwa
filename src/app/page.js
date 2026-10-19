@@ -13,6 +13,18 @@ export default function FlowCapitalApp() {
   const [finState, setFinState] = useState(() => getInitialSeedData());
   const [syncSource, setSyncSource] = useState('localStorage');
   const [isQuickModalOpen, setIsQuickModalOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('fc_theme');
+    if (saved) setIsDarkMode(saved === 'dark');
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isDarkMode;
+    setIsDarkMode(next);
+    localStorage.setItem('fc_theme', next ? 'dark' : 'light');
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -289,7 +301,7 @@ export default function FlowCapitalApp() {
   };
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${isDarkMode ? '' : 'light-theme'}`}>
       {/* 1. Vaulta Neobank Top Header (Screenshots 8 & 10) */}
       <header className="vaulta-header">
         <div className="vaulta-user-row">
@@ -301,13 +313,22 @@ export default function FlowCapitalApp() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            type="button"
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            aria-label="Cambiar tema claro u oscuro"
+            title="Cambiar entre modo claro y oscuro"
+          >
+            {isDarkMode ? '☀️ Claro' : '🌙 Oscuro'}
+          </button>
           <div
             style={{
               fontSize: '11px',
               padding: '4px 10px',
               borderRadius: '999px',
-              background: syncSource === 'neon' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(255, 255, 255, 0.08)',
-              color: syncSource === 'neon' ? '#34D399' : '#94A3B8',
+              background: syncSource === 'neon' ? 'rgba(16, 185, 129, 0.15)' : (isDarkMode ? 'rgba(255, 255, 255, 0.08)' : '#E2E8F0'),
+              color: syncSource === 'neon' ? '#34D399' : (isDarkMode ? '#94A3B8' : '#64748B'),
               border: '1px solid var(--border-subtle)',
               fontWeight: 700
             }}

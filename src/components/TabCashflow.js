@@ -46,107 +46,130 @@ export default function TabCashflow({ incomes, metrics, onAddIncome }) {
   );
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {/* Tarjeta de Cascada de Asignación Inteligente */}
-      <section className="surface-card">
-        <div className="sts-eyebrow">Cascada de Asignación Prioritaria</div>
-        <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginTop: 4 }}>
-          Protección de Compromisos & Metas
-        </h3>
-        <p
-          style={{
-            fontSize: '0.76rem',
-            color: 'var(--text-secondary)',
-            marginTop: 4,
-          }}
-        >
-          Todo nuevo ingreso cubre primero los gastos fijos y la cuota mensual de
-          Sinking Funds antes de liberar saldo variable.
-        </p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* 1. Tarjeta Neobanco: Cascada de Asignación Prioritaria */}
+      <section className="reminder-header-card" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 16 }}>
+        <div>
+          <span className="reminder-spend-eyebrow">Motor de Cascada Financiera</span>
+          <h3 style={{ fontSize: '18px', fontWeight: 800, marginTop: 4, color: 'var(--text-primary)' }}>
+            Protección de Compromisos & Metas
+          </h3>
+          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: 4, lineHeight: 1.4 }}>
+            Todo ingreso cubre primero los gastos fijos innegociables y la cuota de Sinking Funds antes de liberar capital variable.
+          </p>
+        </div>
 
-        <div className="item-list" style={{ marginTop: 14 }}>
-          <div className="item-row">
-            <div>
-              <div className="item-title">1. Ingresos Proyectados del Ciclo</div>
-              <div className="item-meta">Fijos + Honorarios variables</div>
+        {/* 4 Pasos Visuales en Tarjetas */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {/* Paso 1: Ingresos */}
+          <div className="bank-tx-item" style={{ padding: '14px' }}>
+            <div className="bank-tx-left">
+              <div className="bank-tx-icon" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34D399' }}>
+                💰
+              </div>
+              <div>
+                <div className="bank-tx-title">1. Ingresos Proyectados del Ciclo</div>
+                <div className="bank-tx-meta">Fijos + Honorarios variables del mes</div>
+              </div>
             </div>
-            <div
-              className="tabular-nums"
-              style={{ fontWeight: 800, color: 'var(--emerald)' }}
-            >
-              S/ {totalIncomeMonth.toFixed(2)}
+            <div className="bank-tx-amount tabular-nums" style={{ color: 'var(--emerald)', fontSize: '16px' }}>
+              + S/ {totalIncomeMonth.toFixed(2)}
             </div>
           </div>
 
-          <div className="item-row">
-            <div>
-              <div className="item-title">2. Retención Gastos Fijos ({fixedCoveragePct.toFixed(0)}%)</div>
-              <div className="item-meta">Compromisos innegociables del mes</div>
+          {/* Paso 2: Retención Fijos */}
+          <div className="bank-tx-item" style={{ padding: '14px' }}>
+            <div className="bank-tx-left">
+              <div className="bank-tx-icon" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#FBBF24' }}>
+                📌
+              </div>
+              <div>
+                <div className="bank-tx-title">2. Retención Gastos Fijos ({fixedCoveragePct.toFixed(0)}%)</div>
+                <div className="bank-tx-meta">Compromisos innegociables obligatorios</div>
+              </div>
             </div>
-            <div className="tabular-nums" style={{ fontWeight: 700, color: 'var(--amber)' }}>
+            <div className="bank-tx-amount tabular-nums" style={{ color: 'var(--gold)', fontSize: '16px' }}>
               - S/ {totalFixedMonth.toFixed(2)}
             </div>
           </div>
 
-          <div className="item-row">
-            <div>
-              <div className="item-title">3. Cuota Sinking Funds ({goalsCoveragePct.toFixed(0)}%)</div>
-              <div className="item-meta">Ahorro programado obligatorio</div>
+          {/* Paso 3: Sinking Funds */}
+          <div className="bank-tx-item" style={{ padding: '14px' }}>
+            <div className="bank-tx-left">
+              <div className="bank-tx-icon" style={{ background: 'rgba(59, 130, 246, 0.15)', color: '#60A5FA' }}>
+                🎯
+              </div>
+              <div>
+                <div className="bank-tx-title">3. Cuota Sinking Funds ({goalsCoveragePct.toFixed(0)}%)</div>
+                <div className="bank-tx-meta">Ahorro programado para metas</div>
+              </div>
             </div>
-            <div className="tabular-nums" style={{ fontWeight: 700, color: 'var(--cyan)' }}>
+            <div className="bank-tx-amount tabular-nums" style={{ color: 'var(--sapphire-light)', fontSize: '16px' }}>
               - S/ {totalSinkingQuotaMonth.toFixed(2)}
             </div>
           </div>
 
-          <div
-            className="item-row"
-            style={{ borderColor: 'var(--border-focus)', background: 'var(--emerald-soft)' }}
-          >
-            <div>
-              <div className="item-title">4. Capital Variable Liberado</div>
-              <div className="item-meta">Base para Safe-to-Spend diario</div>
+          {/* Paso 4: Capital Variable Liberado */}
+          <div className="bank-tx-item" style={{ padding: '14px', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.35)' }}>
+            <div className="bank-tx-left">
+              <div className="bank-tx-icon" style={{ background: 'var(--emerald)', color: '#060A14' }}>
+                ⚡
+              </div>
+              <div>
+                <div className="bank-tx-title" style={{ color: 'var(--emerald)' }}>4. Capital Variable Liberado</div>
+                <div className="bank-tx-meta">Base del Safe-to-Spend diario</div>
+              </div>
             </div>
-            <div className="tabular-nums" style={{ fontWeight: 800, color: 'var(--emerald)' }}>
+            <div className="bank-tx-amount tabular-nums" style={{ color: 'var(--emerald)', fontSize: '18px', fontWeight: 900 }}>
               S/ {variablePoolTotal.toFixed(2)}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Calendario Visual de Entradas de Capital */}
-      <section className="surface-card">
-        <div className="section-header">
-          <span className="section-title">📅 Calendario de Entradas de Capital</span>
+      {/* 2. Calendario Visual de Entradas de Capital (Screenshot 8 / Vaulta Style) */}
+      <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '18px', padding: '18px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Historial del Ciclo</span>
+            <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)' }}>
+              📅 Calendario de Entradas de Capital
+            </h4>
+          </div>
+          <span className="reminder-active-pill">
+            {incomes.length} ingresos
+          </span>
         </div>
 
-        <div className="item-list">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {incomes.map((inc, index) => {
             const runningTotal = incomes
               .slice(0, index + 1)
               .reduce((acc, item) => acc + Number(item.amount), 0);
 
             return (
-              <div key={inc.id} className="item-row">
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span className="item-title">{inc.title}</span>
-                    <span
-                      className={`micro-badge ${
-                        inc.income_type === 'FIJO' ? 'badge-paid' : 'badge-soon'
-                      }`}
-                    >
-                      {inc.income_type}
-                    </span>
+              <div key={inc.id} className="bank-tx-item">
+                <div className="bank-tx-left">
+                  <div className="bank-tx-icon">
+                    {inc.income_type === 'FIJO' ? '🏦' : '💼'}
                   </div>
-                  <div className="item-meta">
-                    Fecha: {inc.expected_date} · Acumulado ciclo: S/{' '}
-                    {runningTotal.toFixed(2)}
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span className="bank-tx-title">{inc.title}</span>
+                      <span
+                        className={`badge-countdown ${
+                          inc.income_type === 'FIJO' ? 'badge-paid' : 'badge-soon'
+                        }`}
+                      >
+                        {inc.income_type}
+                      </span>
+                    </div>
+                    <div className="bank-tx-meta">
+                      Fecha: {inc.expected_date} · Acumulado: S/ {runningTotal.toFixed(2)}
+                    </div>
                   </div>
                 </div>
-                <div
-                  className="tabular-nums"
-                  style={{ fontWeight: 700, color: 'var(--emerald)' }}
-                >
+                <div className="bank-tx-amount tabular-nums" style={{ color: 'var(--emerald)', fontSize: '15px' }}>
                   + S/ {Number(inc.amount).toFixed(2)}
                 </div>
               </div>
@@ -155,22 +178,25 @@ export default function TabCashflow({ incomes, metrics, onAddIncome }) {
         </div>
       </section>
 
-      {/* Formulario para Inyectar Nuevo Ingreso por Fecha */}
-      <section className="surface-card">
-        <div className="section-header">
-          <span className="section-title">➕ Registrar Ingreso o Honorario</span>
-        </div>
+      {/* 3. Formulario Neobanco para Inyectar Nuevo Ingreso */}
+      <section style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '18px', padding: '18px' }}>
+        <h4 style={{ fontSize: '14px', fontWeight: 800, marginBottom: '14px', color: 'var(--text-primary)' }}>
+          ➕ Inyectar Nuevo Ingreso u Honorario
+        </h4>
         <form
           onSubmit={handleSubmit}
-          style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
+          style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
         >
-          <input
-            type="text"
-            placeholder="Concepto (Ej. Quincena, Bono, Proyecto Web)"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+          <div>
+            <input
+              type="text"
+              placeholder="Concepto (Ej. Quincena, Consultoría, Bono)"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             <input
               type="number"
@@ -188,13 +214,15 @@ export default function TabCashflow({ incomes, metrics, onAddIncome }) {
               <option value="FIJO">Ingreso Fijo</option>
             </select>
           </div>
+
           <input
             type="date"
             value={expectedDate}
             onChange={(e) => setExpectedDate(e.target.value)}
             required
           />
-          <button type="submit" className="btn-primary">
+
+          <button type="submit" className="btn-primary" style={{ marginTop: 4 }}>
             Inyectar al Flujo de Caja
           </button>
         </form>

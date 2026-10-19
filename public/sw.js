@@ -1,4 +1,4 @@
-const CACHE_NAME = 'flowcapital-v1.1.0';
+const CACHE_NAME = 'flowcapital-v2.0.0-neobank';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
@@ -55,7 +55,23 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Stale-While-Revalidate for navigation and static assets
+  // Network-First for HTML navigation so updates appear immediately
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const cloned = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, cloned));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Stale-While-Revalidate for other static assets
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
       const networkFetch = fetch(request)
